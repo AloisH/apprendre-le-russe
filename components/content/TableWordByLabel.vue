@@ -1,0 +1,51 @@
+<template>
+    <Card>
+        <CardHeader>
+            <CardTitle>
+                <h4>
+                    {{ title }}
+                </h4>
+            </CardTitle>
+        </CardHeader>
+        <CardContent>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead class="text-lg">
+                            Français
+                        </TableHead>
+                        <TableHead>
+                            Russe
+                        </TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow v-for="word of selectedWords" :key="`word_${word.wordInFrench}`">
+                        <TableCell class="text-lg">
+                            {{ word.wordInFrench }}
+                        </TableCell>
+                        <TableCell class="text-lg">
+                            {{ word.wordInRussian }}
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </CardContent>
+    </Card>
+</template>
+
+<script setup lang="ts">
+import { words, type Label, type Word } from '~/assets/word/words';
+
+const { label } = defineProps<{
+    title: string;
+    label: Label;
+}>();
+
+const selectedWords = ref<Word[]>(words.filter((word) => {
+    if (word.labels.includes(label)) {
+        return true;
+    }
+    return false;
+}));
+</script>
