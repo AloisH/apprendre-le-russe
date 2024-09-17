@@ -10,8 +10,9 @@ const isMobileMenuOpen = ref(false);
     <nav v-if="isDesktop" class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 border-r-2 min-h-screen min-w-80">
         <ContentNavigation v-slot="{ navigation }">
             <ul class="p-4">
-                <li class="pb-8">
-                    <h3 class="text-3xl font-semibold pt-4 pb-4  pl-3">
+                <li class="pb-8 ">
+                    <h3 class="text-3xl font-semibold pt-4 pb-4  pl-3 flex flex-col justify-center items-center">
+                        <img width="128" height="128" src="/logo.svg" />
                         Apprendre le russe
                     </h3>
                 </li>
