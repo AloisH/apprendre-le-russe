@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="mb-8">
         <CardHeader>
             <CardTitle>
                 <h4>
