@@ -14,7 +14,7 @@
                         <TableHead class="text-lg">
                             Français
                         </TableHead>
-                        <TableHead>
+                        <TableHead class="text-lg">
                             Russe
                         </TableHead>
                     </TableRow>
