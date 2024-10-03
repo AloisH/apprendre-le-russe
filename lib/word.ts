@@ -7,5 +7,6 @@ export function isSameWord(wordA: string, wordB: string): boolean {
 		.toLocaleLowerCase()
 		.normalize("NFD")
 		.replace(/[\u0300-\u036f]/g, "");
+	console.log(wordA, wordB, wordANormalize, wordBNormalize);
 	return wordANormalize === wordBNormalize;
 }

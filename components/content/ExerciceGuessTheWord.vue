@@ -8,6 +8,6 @@ defineProps<{
 
 <template>
     <ClientOnly>
-        <GameFindTheWord :label="label" />
+        <GameGuessTheWord :label="label" />
     </ClientOnly>
 </template>

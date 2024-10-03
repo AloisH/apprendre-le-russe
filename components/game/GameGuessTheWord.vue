@@ -1,0 +1,73 @@
+<script setup lang="ts">
+import type { Label } from "~/assets/word/words";
+import { GameFindTheWord } from "~/lib/game/game-find-the-word";
+import type { PinInputInput } from "../ui/pin-input";
+
+const { label } = defineProps<{
+    label: Label;
+}>();
+
+const userInput = ref<string[]>([]);
+const userInputRef = ref<InstanceType<typeof PinInputInput>[]>([]);
+const game = ref<GameFindTheWord>(new GameFindTheWord('exercice-guest-the-word', 'russian', label));
+
+function onClickValidate() {
+    game.value.play(userInput.value.join(''));
+    userInput.value = [];
+    const firstPinElt = document.getElementById('pinInputInput-0');
+    firstPinElt?.focus();
+}
+
+</script>
+
+<template>
+    <Dialog>
+        <DialogTrigger as-child>
+            <Button variant="outline">
+                Mot avec des trous
+                <Badge v-if="game.record" class="mx-2 bg-green-500 hover:bg-green-400">
+                    {{ game.record.numberOfSucessfullWord }} / {{ game.record.numberOfWord }}
+                </Badge>
+            </Button>
+        </DialogTrigger>
+        <DialogContent>
+            <DialogHeader>
+                <DialogTitle class="px-4 flex justify-between">
+                    Mot avec des trous
+                    <Badge>{{ game.completedWord }} / {{ game.words.length }}</Badge>
+                </DialogTitle>
+            </DialogHeader>
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div v-if="game.state === 'playing'" class="text-xl">
+                    {{ game.currentWord?.wordInFrench }}
+                </div>
+                <div>
+                    <div v-if="game.state === 'playing'" class="flex flex-col gap-2 items-center justify-center">
+                        <PinInput a id="pin-input" v-model="userInput" @keyup.enter="onClickValidate">
+                            <PinInputInput v-for="(id, index) in game.currentWord?.wordInRussian.length" :key="id"
+                                ref="userInputRef" class="border-l" :id="`pinInputInput-${index}`"
+                                :class="{ 'border-red-500': game.previousWord?.state === 'incorrect', 'border-green-500': game.previousWord?.state === 'correct' }"
+                                :index="index" />
+                        </PinInput>
+                        <div v-if="game.previousWord" class="font-bold" :class="{
+                            'text-red-500': game.previousWord.state === 'incorrect',
+                            'text-green-500': game.previousWord.state === 'correct',
+                        }">
+                            {{ game.previousWord.wordInRussian }}
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div class="text-xl">
+                            Bravo, vous avez trouvé
+                            <Badge class="mx-2 text-lg bg-green-500 hover:bg-green-400">{{ game.successfullWord }}
+                            </Badge>
+                            mots
+                            sur {{ game.words.length }}
+                        </div>
+                    </div>
+                </div>
+                <Button @click="onClickValidate">{{ game.state === 'playing' ? 'Valider' : 'Rejouer' }}</Button>
+            </div>
+        </DialogContent>
+    </Dialog>
+</template>

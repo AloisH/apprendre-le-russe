@@ -49,18 +49,18 @@ export const words = [
 		labels: ["niv-1:mot-qui-se-ressemble"],
 	},
 	{
-		wordInFrench: "Classe",
+		wordInFrench: "classe",
 		wordInRussian: "класс",
 		labels: ["niv-1:mot-qui-se-ressemble", "niv-1:mot-facile"],
 	},
 	{
-		wordInFrench: "Tigre",
+		wordInFrench: "tigre",
 		wordInRussian: "тигр",
 		labels: ["niv-1:mot-qui-se-ressemble"],
 	},
 	{
-		wordInFrench: "Chef",
-		wordInRussian: "ШеФ",
+		wordInFrench: "chef",
+		wordInRussian: "шеф",
 		labels: ["niv-1:mot-qui-se-ressemble"],
 	},
 	{
