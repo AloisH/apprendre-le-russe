@@ -8,12 +8,14 @@ const { label } = defineProps<{
 }>();
 
 const userInput = ref<string[]>([]);
-const userInputRef = ref<InstanceType<typeof PinInputInput>[]>([]);
+const pinInputKey = ref(0);
 const game = ref<GameFindTheWord>(new GameFindTheWord('exercice-guest-the-word', 'russian', label));
 
-function onClickValidate() {
+async function onClickValidate() {
     game.value.play(userInput.value.join(''));
     userInput.value = [];
+    pinInputKey.value += 1;
+    await nextTick();
     const firstPinElt = document.getElementById('pinInputInput-0');
     firstPinElt?.focus();
 }
@@ -43,9 +45,9 @@ function onClickValidate() {
                 </div>
                 <div>
                     <div v-if="game.state === 'playing'" class="flex flex-col gap-2 items-center justify-center">
-                        <PinInput a id="pin-input" v-model="userInput" @keyup.enter="onClickValidate">
+                        <PinInput :key="pinInputKey" v-model="userInput" @keyup.enter="onClickValidate">
                             <PinInputInput v-for="(id, index) in game.currentWord?.wordInRussian.length" :key="id"
-                                ref="userInputRef" class="border-l" :id="`pinInputInput-${index}`"
+                                class="border-l" :id="index === 0 ? `pinInputInput-${index}` : undefined"
                                 :class="{ 'border-red-500': game.previousWord?.state === 'incorrect', 'border-green-500': game.previousWord?.state === 'correct' }"
                                 :index="index" />
                         </PinInput>
