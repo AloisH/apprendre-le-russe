@@ -281,7 +281,7 @@ export const words = [
 	},
 	{
 		wordInFrench: "Moscou",
-		wordInRussian: "москва",
+		wordInRussian: "Москва",
 		labels: ["niv-1:mot-facile"],
 	},
 ] satisfies Word[];

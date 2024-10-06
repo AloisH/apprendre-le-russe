@@ -16,7 +16,7 @@ export class GameFindTheWord {
 	public readonly words: Word[];
 
 	public state: GameState = "playing";
-	public previousWord: (Word & { state: PreviousWordStatus }) | null = null;
+	public previousWords: (Word & { state: PreviousWordStatus })[] = [];
 	public wordAvailables: Word[] = [];
 	public successfullWord = 0;
 	public completedWord = 0;
@@ -55,9 +55,9 @@ export class GameFindTheWord {
 			)
 		) {
 			this.successfullWord += 1;
-			this.previousWord = { ...this.currentWord, state: "correct" };
+			this.previousWords.push({ ...this.currentWord, state: "correct" });
 		} else {
-			this.previousWord = { ...this.currentWord, state: "incorrect" };
+			this.previousWords.push({ ...this.currentWord, state: "incorrect" });
 		}
 		this.completedWord += 1;
 		this.nextRound();
@@ -88,7 +88,7 @@ export class GameFindTheWord {
 		this.wordAvailables = [...this.words];
 		this.completedWord = 0;
 		this.successfullWord = 0;
-		this.previousWord = null;
+		this.previousWords = [];
 		this.nextRound();
 	}
 

@@ -7,7 +7,7 @@ const { label } = defineProps<{
 }>();
 
 const userInput = ref<string>('');
-const game = ref<GameFindTheWord>(new GameFindTheWord('exercice-find-the-word', 'russian', label));
+const game = ref<GameFindTheWord>(new GameFindTheWord('exercice-find-the-word', 'french', label));
 
 function onClickValidate() {
     game.value.play(userInput.value);
@@ -39,13 +39,13 @@ function onClickValidate() {
                 <div>
                     <div v-if="game.state === 'playing'" class="flex flex-col gap-2 items-center justify-center">
                         <Input v-model="userInput"
-                            :class="{ 'border-red-500': game.previousWord?.state === 'incorrect', 'border-green-500': game.previousWord?.state === 'correct' }"
+                            :class="{ 'border-red-500': game.previousWords[game.previousWords.length - 1]?.state === 'incorrect', 'border-green-500': game.previousWords[game.previousWords.length - 1]?.state === 'correct' }"
                             autofocus placeholder="Trouver le mot" @keyup.enter="onClickValidate" />
-                        <div v-if="game.previousWord" class="font-bold" :class="{
-                            'text-red-500': game.previousWord.state === 'incorrect',
-                            'text-green-500': game.previousWord.state === 'correct',
+                        <div v-if="game.previousWords[game.previousWords.length - 1]" class="font-bold" :class="{
+                            'text-red-500': game.previousWords[game.previousWords.length - 1].state === 'incorrect',
+                            'text-green-500': game.previousWords[game.previousWords.length - 1].state === 'correct',
                         }">
-                            {{ game.previousWord.wordInFrench }}
+                            {{ game.previousWords[game.previousWords.length - 1].wordInFrench }}
                         </div>
                     </div>
                     <div v-else>
@@ -60,6 +60,7 @@ function onClickValidate() {
                 </div>
                 <Button @click="onClickValidate">{{ game.state === 'playing' ? 'Valider' : 'Rejouer' }}</Button>
             </div>
+            <GameTableWithMistake :game="(game as GameFindTheWord)" />
         </DialogContent>
     </Dialog>
 </template>

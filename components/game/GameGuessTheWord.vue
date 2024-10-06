@@ -26,7 +26,7 @@ async function onClickValidate() {
     <Dialog>
         <DialogTrigger as-child>
             <Button variant="outline">
-                Mot avec des trous
+                Trouve le mot russe
                 <Badge v-if="game.record" class="mx-2 bg-green-500 hover:bg-green-400">
                     {{ game.record.numberOfSucessfullWord }} / {{ game.record.numberOfWord }}
                 </Badge>
@@ -35,7 +35,7 @@ async function onClickValidate() {
         <DialogContent>
             <DialogHeader>
                 <DialogTitle class="px-4 flex justify-between">
-                    Mot avec des trous
+                    Trouve le mot russe
                     <Badge>{{ game.completedWord }} / {{ game.words.length }}</Badge>
                 </DialogTitle>
             </DialogHeader>
@@ -48,14 +48,14 @@ async function onClickValidate() {
                         <PinInput :key="pinInputKey" v-model="userInput" @keyup.enter="onClickValidate">
                             <PinInputInput v-for="(id, index) in game.currentWord?.wordInRussian.length" :key="id"
                                 class="border-l" :id="index === 0 ? `pinInputInput-${index}` : undefined"
-                                :class="{ 'border-red-500': game.previousWord?.state === 'incorrect', 'border-green-500': game.previousWord?.state === 'correct' }"
+                                :class="{ 'border-red-500': game.previousWords[game.previousWords.length - 1]?.state === 'incorrect', 'border-green-500': game.previousWords[game.previousWords.length - 1]?.state === 'correct' }"
                                 :index="index" />
                         </PinInput>
-                        <div v-if="game.previousWord" class="font-bold" :class="{
-                            'text-red-500': game.previousWord.state === 'incorrect',
-                            'text-green-500': game.previousWord.state === 'correct',
+                        <div v-if="game.previousWords[game.previousWords.length - 1]" class="font-bold" :class="{
+                            'text-red-500': game.previousWords[game.previousWords.length - 1].state === 'incorrect',
+                            'text-green-500': game.previousWords[game.previousWords.length - 1].state === 'correct',
                         }">
-                            {{ game.previousWord.wordInRussian }}
+                            {{ game.previousWords[game.previousWords.length - 1].wordInRussian }}
                         </div>
                     </div>
                     <div v-else>
@@ -70,6 +70,7 @@ async function onClickValidate() {
                 </div>
                 <Button @click="onClickValidate">{{ game.state === 'playing' ? 'Valider' : 'Rejouer' }}</Button>
             </div>
+            <GameTableWithMistake :game="(game as GameFindTheWord)" />
         </DialogContent>
     </Dialog>
 </template>

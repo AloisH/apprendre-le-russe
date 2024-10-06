@@ -22,10 +22,10 @@
                 <TableBody>
                     <TableRow v-for="word of selectedWords" :key="`word_${word.wordInFrench}`">
                         <TableCell class="text-lg">
-                            {{ word.wordInFrench.toLowerCase() }}
+                            {{ word.wordInFrench }}
                         </TableCell>
                         <TableCell class="text-lg">
-                            {{ word.wordInRussian.toLocaleLowerCase() }}
+                            {{ word.wordInRussian }}
                         </TableCell>
                     </TableRow>
                 </TableBody>
