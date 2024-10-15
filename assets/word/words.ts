@@ -1,4 +1,7 @@
-export type Label = "niv-1:mot-qui-se-ressemble" | "niv-1:mot-facile";
+export type Label =
+	| "niv-1:mot-qui-se-ressemble"
+	| "niv-1:mot-facile"
+	| "niv-1:premieres-phrases";
 
 export type Word = {
 	wordInFrench: string;
@@ -283,5 +286,30 @@ export const words = [
 		wordInFrench: "Moscou",
 		wordInRussian: "Москва",
 		labels: ["niv-1:mot-facile"],
+	},
+	{
+		wordInFrench: "qui",
+		wordInRussian: "кто",
+		labels: ["niv-1:premieres-phrases"],
+	},
+	{
+		wordInFrench: "quoi",
+		wordInRussian: "что",
+		labels: ["niv-1:premieres-phrases"],
+	},
+	{
+		wordInFrench: "ça",
+		wordInRussian: "это",
+		labels: ["niv-1:premieres-phrases"],
+	},
+	{
+		wordInFrench: "oui",
+		wordInRussian: "да",
+		labels: ["niv-1:premieres-phrases"],
+	},
+	{
+		wordInFrench: "non",
+		wordInRussian: "нет",
+		labels: ["niv-1:premieres-phrases"],
 	},
 ] satisfies Word[];
